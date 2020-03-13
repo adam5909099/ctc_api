@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "97abfb91f989602bf0420dbc30e48d7770cd4653c613d42a95ed5ab48cfadce9"
+            "sha256": "3e6164bc90dc4a3659a7923197ebef28601f55eb3e9fe377731c0ceee879568d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,10 +18,10 @@
     "default": {
         "asgiref": {
             "hashes": [
-                "sha256:7e06d934a7718bf3975acbf87780ba678957b87c7adc056f13b6215d610695a0",
-                "sha256:ea448f92fc35a0ef4b1508f53a04c4670255a3f33d22a81c8fc9c872036adbe5"
+                "sha256:3e4192eaec0758b99722f0b0666d5fbfaa713054d92e8de5b58ba84ec5ce696f",
+                "sha256:c8f49dd3b42edcc51d09dd2eea8a92b3cfc987ff7e6486be734b4d0cbfd5d315"
             ],
-            "version": "==3.2.3"
+            "version": "==3.2.5"
         },
         "cffi": {
             "hashes": [
@@ -91,11 +91,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:2f1ba1db8648484dd5c238fb62504777b7ad090c81c5f1fd8d5eb5ec21b5f283",
-                "sha256:c91c91a7ad6ef67a874a4f76f58ba534f9208412692a840e1d125eb5c279cb0a"
+                "sha256:50b781f6cbeb98f673aa76ed8e572a019a45e52bdd4ad09001072dfd91ab07c8",
+                "sha256:89e451bfbb815280b137e33e454ddd56481fdaa6334054e6e031041ee1eda360"
             ],
             "index": "pypi",
-            "version": "==3.0.3"
+            "version": "==3.0.4"
         },
         "django-cors-headers": {
             "hashes": [
@@ -158,9 +158,10 @@
         },
         "pycparser": {
             "hashes": [
-                "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
+                "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0",
+                "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"
             ],
-            "version": "==2.19"
+            "version": "==2.20"
         },
         "pytz": {
             "hashes": [
@@ -189,6 +190,9 @@
                 "sha256:62556265ec1011bd87113fb81b7516f52688887b7a010ee899ff1fd18fd22700"
             ],
             "version": "==5.0.1"
+        },
+        "yake": {
+            "git": "https://github.com/LIAAD/yake"
         }
     },
     "develop": {

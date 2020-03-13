@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'knox',
-    'authentication'
+    'authentication',
+    'algorithm'
 ]
 
 REST_FRAMEWORK = {
