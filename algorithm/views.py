@@ -6,7 +6,6 @@ import yake
 
 class KeywordExtractor(APIView):
     def post(self, request):
-        kw_extractor = yake.KeywordExtractor()
+        kw_extractor = yake.KeywordExtractor(top=50)
         keywords = kw_extractor.extract_keywords(request.data.get('text'))
-        keywords.sort(key=lambda x: x[1])
         return Response([keyword[0] for keyword in keywords])
