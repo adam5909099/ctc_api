@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'authentication',
-    'algorithm'
+    'algorithm',
+    'jobs'
 ]
 
 REST_FRAMEWORK = {

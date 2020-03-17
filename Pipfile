@@ -18,5 +18,5 @@ autopep8 = "*"
 [requires]
 python_version = "3.7"
 
-[packages.yake]
-git = "https://github.com/LIAAD/yake"
+[packages]
+yake = {git = "https://github.com/LIAAD/yake"}
