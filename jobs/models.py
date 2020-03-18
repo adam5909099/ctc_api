@@ -10,3 +10,4 @@ class Job(models.Model):
     description = models.TextField()
     description_html = models.TextField()
     keywords = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
