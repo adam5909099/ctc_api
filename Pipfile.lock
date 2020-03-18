@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3e6164bc90dc4a3659a7923197ebef28601f55eb3e9fe377731c0ceee879568d"
+            "sha256": "97abfb91f989602bf0420dbc30e48d7770cd4653c613d42a95ed5ab48cfadce9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -190,9 +190,6 @@
                 "sha256:62556265ec1011bd87113fb81b7516f52688887b7a010ee899ff1fd18fd22700"
             ],
             "version": "==5.0.1"
-        },
-        "yake": {
-            "git": "https://github.com/LIAAD/yake"
         }
     },
     "develop": {
