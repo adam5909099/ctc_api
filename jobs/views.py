@@ -1,6 +1,12 @@
 from rest_framework import viewsets
-from .models import Job
-from .serializers import JobSerializer
+from .models import Job, Position
+from .serializers import JobSerializer, PositionSerializer
+from .serializers import PositionSerializer
+
+
+class PositionViewSet(viewsets.ModelViewSet):
+    queryset = Position.objects.all()
+    serializer_class = PositionSerializer
 
 
 class JobViewSet(viewsets.ModelViewSet):

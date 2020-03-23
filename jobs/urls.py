@@ -1,6 +1,7 @@
 from rest_framework import routers
-from .views import JobViewSet
+from .views import PositionViewSet, JobViewSet
 
 router = routers.SimpleRouter()
-router.register('', JobViewSet)
+router.register(r'jobs', JobViewSet)
+router.register(r'positions', PositionViewSet)
 urlpatterns = router.urls

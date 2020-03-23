@@ -2,6 +2,10 @@ from django.contrib import admin
 from django.db import models
 
 
+class Position(models.Model):
+    name = models.CharField(max_length=255)
+
+
 class Job(models.Model):
     title = models.CharField(max_length=255)
     company = models.CharField(max_length=255)
