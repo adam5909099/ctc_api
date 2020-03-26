@@ -3,6 +3,8 @@ from .models import Job, Position
 from .serializers import JobSerializer, PositionSerializer
 from .serializers import PositionSerializer
 
+Job.objects.all().delete()
+
 
 class PositionViewSet(viewsets.ModelViewSet):
     queryset = Position.objects.all()

@@ -14,4 +14,6 @@ class Job(models.Model):
     description = models.TextField()
     description_html = models.TextField()
     keywords = models.TextField()
+    position = models.ForeignKey(
+        Position, on_delete=models.CASCADE, related_name='jobs')
     created_at = models.DateTimeField(auto_now_add=True)
