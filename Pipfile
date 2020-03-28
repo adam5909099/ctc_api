@@ -10,6 +10,7 @@ django-rest-knox = "*"
 gunicorn = "*"
 django-heroku = "*"
 django-cors-headers = "*"
+yake = {git = "https://github.com/LIAAD/yake"}
 
 [dev-packages]
 pylint = "*"
@@ -17,4 +18,3 @@ autopep8 = "*"
 
 [requires]
 python_version = "3.7"
-
