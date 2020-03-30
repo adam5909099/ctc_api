@@ -21,7 +21,7 @@ class JobViewSet(viewsets.ModelViewSet):
     def resume_upload(self, request, pk):
         obj = self.get_object()
         serializer = self.serializer_class(
-            obj, data=request.data, partial=True)
+            obj, data=request.data, partial=True, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return response.Response(serializer.data)
