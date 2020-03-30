@@ -6,6 +6,13 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
+        read_only_fields = ['resume']
+
+
+class JobResumeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ['resume']
 
 
 class PositionSerializer(serializers.ModelSerializer):

@@ -16,4 +16,5 @@ class Job(models.Model):
     keywords = models.TextField()
     position = models.ForeignKey(
         Position, on_delete=models.CASCADE, related_name='jobs')
+    resume = models.FileField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
