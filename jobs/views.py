@@ -7,6 +7,12 @@ class PositionViewSet(viewsets.ModelViewSet):
     queryset = Position.objects.all()
     serializer_class = PositionSerializer
 
+    @decorators.action(detail=True, methods=['PUT'])
+    def move(self, request, pk):
+        obj = self.get_object()
+        new_order = request.data.get('order')
+        Position.objects.move(obj, new_order)
+
 
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
