@@ -32,6 +32,7 @@ class PositionManager(models.Manager):
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
+    order = models.IntegerField(default=1)
 
     objects = PositionManager()
 
