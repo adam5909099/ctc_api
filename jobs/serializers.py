@@ -9,7 +9,7 @@ class JobSerializer(serializers.ModelSerializer):
         read_only_fields = ['resume']
 
 
-class JobResumeSerializer(serializers.ModelSerializer):
+class ResumeUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = ['resume']

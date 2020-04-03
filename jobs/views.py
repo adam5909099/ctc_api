@@ -1,6 +1,6 @@
 from rest_framework import viewsets, status, parsers, response, decorators
 from .models import Job, Position
-from .serializers import JobSerializer, PositionSerializer, JobResumeSerializer
+from .serializers import JobSerializer, PositionSerializer, ResumeUploadSerializer
 
 
 class PositionViewSet(viewsets.ModelViewSet):
@@ -15,13 +15,22 @@ class JobViewSet(viewsets.ModelViewSet):
     @decorators.action(
         detail=True,
         methods=['PUT'],
-        serializer_class=JobResumeSerializer,
+        serializer_class=ResumeUploadSerializer,
         parser_classes=[parsers.MultiPartParser]
     )
     def resume_upload(self, request, pk):
         obj = self.get_object()
         serializer = self.serializer_class(
             obj, data=request.data, partial=True, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response.Response(serializer.data)
+
+    @decorators.action(detail=True, methods=['PUT'])
+    def position_change(self, request, pk):
+        obj = self.get_object()
+        serializer = self.serializer_class(
+            obj, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return response.Response(serializer.data)
