@@ -10,7 +10,7 @@ class PositionManager(models.Manager):
             qs.filter(order__lt=obj.order, order__gte=new_order).exclude(
                 pk=obj.pk).update(order=models.F('order')+1)
         else:
-            qs.filter(order__lte=new_order, order_gt=obj.order).exclude(
+            qs.filter(order__lte=new_order, order__gt=obj.order).exclude(
                 pk=obj.pk).update(order=models.F('order')-1)
 
         obj.order = new_order

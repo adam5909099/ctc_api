@@ -12,6 +12,7 @@ class PositionViewSet(viewsets.ModelViewSet):
         obj = self.get_object()
         new_order = request.data.get('order')
         Position.objects.move(obj, new_order)
+        return response.Response()
 
 
 class JobViewSet(viewsets.ModelViewSet):
