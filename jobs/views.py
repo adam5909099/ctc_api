@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status, parsers, response, decorators
 from .models import Job, Position
 from .serializers import JobSerializer, PositionSerializer, ResumeUploadSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class PositionViewSet(viewsets.ModelViewSet):
@@ -18,6 +19,8 @@ class PositionViewSet(viewsets.ModelViewSet):
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['url']
 
     @decorators.action(
         detail=True,
