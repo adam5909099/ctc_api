@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Job, Position
+from .models import Job
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -13,11 +13,3 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = ['resume']
-
-
-class PositionSerializer(serializers.ModelSerializer):
-    jobs = JobSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Position
-        fields = '__all__'
