@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'knox',
     'django_filters',
     'authentication',
-    'algorithm',
     'jobs',
     'resumes'
 ]
