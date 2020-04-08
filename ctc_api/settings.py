@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'django_filters',
-    'authentication',
+    'accounts',
     'jobs',
     'resumes'
 ]
