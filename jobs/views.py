@@ -1,20 +1,8 @@
 from rest_framework import viewsets, status, parsers, response, decorators
 from .models import Job, Position
-from .serializers import JobSerializer, PositionSerializer, ResumeUploadSerializer
+from .serializers import JobSerializer, ResumeUploadSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 import yake
-
-
-class PositionViewSet(viewsets.ModelViewSet):
-    queryset = Position.objects.all()
-    serializer_class = PositionSerializer
-
-    @decorators.action(detail=True, methods=['PUT'])
-    def move(self, request, pk):
-        obj = self.get_object()
-        new_order = request.data.get('order')
-        Position.objects.move(obj, new_order)
-        return response.Response()
 
 
 class JobViewSet(viewsets.ModelViewSet):

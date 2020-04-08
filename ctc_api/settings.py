@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'knox',
     'django_filters',
     'accounts',
+    'positions',
     'jobs',
-    'resumes'
 ]
 
 REST_FRAMEWORK = {
