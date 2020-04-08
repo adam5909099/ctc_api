@@ -2,6 +2,7 @@ from rest_framework import viewsets, status, parsers, response, decorators
 from .models import Job, Position
 from .serializers import JobSerializer, PositionSerializer, ResumeUploadSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+import yake
 
 
 class PositionViewSet(viewsets.ModelViewSet):
@@ -44,3 +45,10 @@ class JobViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return response.Response(serializer.data)
+
+    @decorators.action(detail=False, methods=['POST'])
+    def keyword_extract(self, request):
+        kw_extractor = yake.KeywordExtractor(top=50)
+        keywords = kw_extractor.extract_keywords(request.data.get('text'))
+        print(keywords)
+        return response.Response([keyword[0] for keyword in keywords])
