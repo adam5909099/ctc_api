@@ -15,4 +15,5 @@ class Job(models.Model):
         Position, on_delete=models.CASCADE, related_name='jobs')
     url = models.URLField(default="")
     resume = models.FileField(upload_to="", blank=True)
+    resume_text = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
