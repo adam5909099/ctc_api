@@ -1,9 +1,8 @@
-from rest_framework import viewsets, status, parsers, response, decorators
+from rest_framework import viewsets, parsers, response, decorators
 from .models import Job, Position
 from .serializers import JobSerializer, ResumeUploadSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 import yake
-import PyPDF3
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -24,7 +23,7 @@ class JobViewSet(viewsets.ModelViewSet):
             obj, data=request.data, partial=True, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        print(request.data)
+        # print(extract_text(request.data.get('resume')))
         return response.Response(serializer.data)
 
     @decorators.action(detail=True, methods=['PUT'])

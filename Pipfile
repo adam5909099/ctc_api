@@ -12,6 +12,7 @@ django-heroku = "*"
 django-cors-headers = "*"
 yake = {git = "https://github.com/LIAAD/yake"}
 django-filter = "*"
+pdfminer-six = "*"
 
 [dev-packages]
 pylint = "*"
