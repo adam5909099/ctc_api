@@ -16,5 +16,6 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
         fields = ['resume', 'resume_text']
 
     def update(self, instance, validated_data):
+        instance.resume = validated_data.get('resume')
         instance.resume_text = extract_text(validated_data.get('resume'))
         return instance
