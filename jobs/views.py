@@ -37,6 +37,6 @@ class JobViewSet(viewsets.ModelViewSet):
 
     @decorators.action(detail=False, methods=['POST'])
     def keyword_extract(self, request):
-        kw_extractor = yake.KeywordExtractor(top=50)
+        kw_extractor = yake.KeywordExtractor(n=2)
         keywords = kw_extractor.extract_keywords(request.data.get('text'))
         return response.Response([keyword[0] for keyword in keywords])
