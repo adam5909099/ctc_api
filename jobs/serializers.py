@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Job
 from pdfminer.high_level import extract_text
 import string
+import re
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -18,9 +19,13 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.resume = validated_data.get('resume')
-        printable = set(string.printable)
-        resume_text = extract_text(validated_data.get('resume'))
-        instance.resume_text = ''.join(
-            filter(lambda x: x in printable, resume_text)).strip().strip('\n')
+
+        extracted = extract_text(validated_data.get('resume'))
+        printable = ''.join(
+            filter(lambda x: x in set(string.printable), extracted))
+        without_cid = re.sub(r'\(cid:\d*\)', '', printable)
+        stripped = re.sub('\n{2,}', '\n\n', without_cid).strip().strip('\n')
+        instance.resume_text = stripped
+
         instance.save()
         return instance

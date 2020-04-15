@@ -39,5 +39,4 @@ class JobViewSet(viewsets.ModelViewSet):
     def keyword_extract(self, request):
         kw_extractor = yake.KeywordExtractor(top=50)
         keywords = kw_extractor.extract_keywords(request.data.get('text'))
-        print(keywords)
         return response.Response([keyword[0] for keyword in keywords])
