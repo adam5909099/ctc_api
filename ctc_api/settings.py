@@ -138,4 +138,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+EMSI_CLIENT_ID = '6yiafu97i0azswb2'
+EMSI_SECRET = 'KaFFqyIS'
+EMSI_SCOPE = 'emsi_open'
+
 django_on_heroku.settings(locals())
