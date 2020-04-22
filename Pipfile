@@ -13,6 +13,8 @@ yake = {git = "https://github.com/LIAAD/yake"}
 django-filter = "*"
 pdfminer-six = "*"
 django-on-heroku = "*"
+cachetools = "*"
+requests = "*"
 
 [dev-packages]
 pylint = "*"
