@@ -8,31 +8,29 @@ from utils.emsi import get_keywords
 
 
 class JobSerializer(serializers.ModelSerializer):
+    keywords = serializers.SerializerMethodField()
+    resume_keywords = serializers.SerializerMethodField()
+
+    def get_keywords(self, obj):
+        return json.loads(obj.keywords) if obj.keywords else null
+
+    def get_resume_keywords(self, obj):
+        return json.loads(obj.resume_keywords) if obj.resume_keywords else null
+
+    def create(self, validated_data):
+        instance = Job.objects.create(**validated_data)
+        instance.keywords = json.dumps(
+            get_keywords(validated_data.get('description')))
+        instance.save()
+        return instance
+
     class Meta:
         model = Job
         fields = '__all__'
         read_only_fields = ['resume']
 
-    keywords = serializers.SerializerMethodField()
-
-    def get_keywords(self, obj):
-        if obj:
-            return json.loads(obj.keywords)
-        else:
-            return null
-
-    def create(self, validated_data):
-        instance = Job.objects.create(**validated_data)
-        instance.keywords = json.dumps(get_keywords(validated_data.get('description')))
-        instance.save()
-        return instance
-
 
 class ResumeUploadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Job
-        fields = ['resume', 'resume_text']
-
     def update(self, instance, validated_data):
         instance.resume = validated_data.get('resume')
 
@@ -42,6 +40,11 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
         without_cid = re.sub(r'\(cid:\d*\)', '', printable)
         stripped = re.sub('\n{2,}', '\n\n', without_cid).strip().strip('\n')
         instance.resume_text = stripped
+        instance.resume_keywords = json.dumps(get_keywords(stripped))
 
         instance.save()
         return instance
+
+    class Meta:
+        model = Job
+        fields = ['resume', 'resume_text']
