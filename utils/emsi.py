@@ -27,11 +27,16 @@ def get_token():
         return cache['token']
 
 
-def extract(text):
+def get_skills(text):
     headers = {
         'authorization': f'Bearer {get_token()}',
         'content-type': 'application/json'
     }
     response = requests.post(
-        'https://skills.emsicloud.com/versions/latest/extract?trace=true', data=json.dumps({'full_text': text}), headers=headers).json()
+        'https://skills.emsicloud.com/versions/latest/extract?trace=true',
+        data=json.dumps({'full_text': text}), headers=headers).json()
+    keywords = map(lambda x: {
+        value: x['surfaceForm']['value'],
+        skill: x['classificationData']['skills'][0]['skill']['name']
+    }, response.trace)
     return response

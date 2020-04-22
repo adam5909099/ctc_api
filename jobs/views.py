@@ -2,7 +2,7 @@ from rest_framework import viewsets, parsers, response, decorators
 from .models import Job, Position
 from .serializers import JobSerializer, ResumeUploadSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from utils.emsi import extract
+from utils.emsi import get_skills
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -23,7 +23,6 @@ class JobViewSet(viewsets.ModelViewSet):
             obj, data=request.data, partial=True, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        # print(extract_text(request.data.get('resume')))
         return response.Response(serializer.data)
 
     @decorators.action(detail=True, methods=['PUT'])
@@ -37,8 +36,8 @@ class JobViewSet(viewsets.ModelViewSet):
 
     @decorators.action(detail=False, methods=['POST'])
     def keyword_extract(self, request):
-        data = extract(request.data.get('text'))
-        keywords = map(lambda x: x['surfaceForm']['value'], data['trace'])
+        skills = get_skills(request.data.get('text'))
+        keywords = map(lambda x: x.value, skills)
         
         duplicate_removed = []
         marker = set()
