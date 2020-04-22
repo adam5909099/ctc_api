@@ -40,4 +40,4 @@ def get_keywords(text):
         'value': x['surfaceForm']['value'],
         'skill': x['classificationData']['skills'][0]['skill']['name']
     }, response['trace'])
-    return keywords
+    return list(keywords)

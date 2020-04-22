@@ -3,6 +3,8 @@ from .models import Job
 from pdfminer.high_level import extract_text
 import string
 import re
+import json
+from utils.emsi import get_keywords
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -11,16 +13,19 @@ class JobSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['resume']
 
-    def create(self, instance, validated_data):
-        instance.title = validated_data.get('title')
-        instance.company = validated_data.get('company')
-        instance.location = validated_data.get('location')
-        instance.logo = validated_data.get('logo')
-        instance.description = validated_data.get('description')
-        instance.position = validated_data.get('position')
-        instance.url = validated_data.get('url')
-        instance.keywords = validated_data.get('resume')
+    keywords = serializers.SerializerMethodField()
 
+    def get_keywords(self, obj):
+        if obj:
+            return json.loads(obj.keywords)
+        else:
+            return null
+
+    def create(self, validated_data):
+        instance = Job.objects.create(**validated_data)
+        instance.keywords = json.dumps(get_keywords(validated_data.get('description')))
+        instance.save()
+        return instance
 
 
 class ResumeUploadSerializer(serializers.ModelSerializer):
