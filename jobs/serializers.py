@@ -24,6 +24,20 @@ class JobSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+    def update(self, instance, validated_data):
+        instance.resume_text = validated_data.get('resume_text')
+        resume_keywords = get_keywords(instance.resume_text)
+        instance.resume_keywords = json.dumps(resume_keywords)
+
+        values = list(map(lambda x: x['value'].lower(), json.loads(instance.keywords)))
+        resume_values = list(map(lambda x: x['value'].lower(), resume_keywords))
+        matching_count = len([value for value in values if value in resume_values])
+        instance.score = matching_count / len(values) if len(values) else 0
+
+        instance.save()
+        return instance
+
+
     class Meta:
         model = Job
         fields = '__all__'
@@ -31,6 +45,11 @@ class JobSerializer(serializers.ModelSerializer):
 
 
 class ResumeUploadSerializer(serializers.ModelSerializer):
+    resume_keywords = serializers.SerializerMethodField()
+
+    def get_resume_keywords(self, obj):
+        return json.loads(obj.resume_keywords) if obj.resume_keywords else None
+
     def update(self, instance, validated_data):
         instance.resume = validated_data.get('resume')
 
@@ -44,8 +63,8 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
         resume_keywords = get_keywords(stripped)
         instance.resume_keywords = json.dumps(resume_keywords)
 
-        values = list(map(lambda x: x['value'], json.loads(instance.keywords)))
-        resume_values = list(map(lambda x: x['value'], resume_keywords))
+        values = list(map(lambda x: x['value'].lower(), json.loads(instance.keywords)))
+        resume_values = list(map(lambda x: x['value'].lower(), resume_keywords))
         matching_count = len([value for value in values if value in resume_values])
         instance.score = matching_count / len(values) if len(values) else 0
 
