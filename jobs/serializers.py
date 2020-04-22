@@ -44,10 +44,10 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
         resume_keywords = get_keywords(stripped)
         instance.resume_keywords = json.dumps(resume_keywords)
 
-        skills = list(map(lambda x: x['skill'], json.loads(instance.keywords)))
-        resume_skills = list(map(lambda x: x['skill'], resume_keywords))
-        matching_count = len([skill for skill in skills if skill in resume_skills])
-        instance.score = matching_count / len(skills) if len(skills) else 0
+        values = list(map(lambda x: x['value'], json.loads(instance.keywords)))
+        resume_values = list(map(lambda x: x['value'], resume_keywords))
+        matching_count = len([value for value in values if value in resume_values])
+        instance.score = matching_count / len(values) if len(values) else 0
 
         instance.save()
         return instance
