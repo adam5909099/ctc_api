@@ -15,5 +15,6 @@ class Job(models.Model):
     url = models.URLField(default="")
     resume = models.FileField(upload_to="", blank=True)
     resume_text = models.TextField(default="")
+    resume_keywords = models.TextField()
     score = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

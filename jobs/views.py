@@ -39,4 +39,13 @@ class JobViewSet(viewsets.ModelViewSet):
     def keyword_extract(self, request):
         data = extract(request.data.get('text'))
         keywords = map(lambda x: x['surfaceForm']['value'], data['trace'])
-        return response.Response(list(dict.fromkeys(keywords)))
+        
+        duplicate_removed = []
+        marker = set()
+        for keyword in keywords:
+            lowercased = keyword.lower()
+            if lowercased not in marker:
+                marker.add(lowercased)
+                duplicate_removed.append(keyword)
+
+        return response.Response(duplicate_removed)
