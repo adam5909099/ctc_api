@@ -2,7 +2,7 @@ from rest_framework import viewsets, parsers, response, decorators
 from .models import Job, Position
 from .serializers import JobSerializer, ResumeUploadSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from utils.emsi import get_skills
+from utils.emsi import get_keywords
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -36,9 +36,9 @@ class JobViewSet(viewsets.ModelViewSet):
 
     @decorators.action(detail=False, methods=['POST'])
     def keyword_extract(self, request):
-        skills = get_skills(request.data.get('text'))
-        keywords = map(lambda x: x.value, skills)
-        
+        keywords = map(lambda x: x['value'], get_keywords(
+            request.data.get('text')))
+
         duplicate_removed = []
         marker = set()
         for keyword in keywords:
