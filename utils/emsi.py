@@ -44,9 +44,8 @@ def get_keywords(text):
     duplicate_removed = []
     marker = set()
     for keyword in keywords:
-        lowercased = keyword['value'].lower()
-        if lowercased not in marker:
-            marker.add(lowercased)
+        if keyword['skill'] not in marker:
+            marker.add(keyword['skill'])
             duplicate_removed.append(keyword)
 
     return list(duplicate_removed)
