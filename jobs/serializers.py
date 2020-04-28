@@ -51,9 +51,9 @@ class ResumeUploadSerializer(serializers.ModelSerializer):
         return json.loads(obj.resume_keywords) if obj.resume_keywords else None
 
     def update(self, instance, validated_data):
-        instance.resume = validated_data.get('resume')
+        instance.resume = validated_data.get('resume', instance.resume)
 
-        extracted = extract_text(validated_data.get('resume'))
+        extracted = extract_text(validated_data.get('resume', instance.resume))
         printable = ''.join(
             filter(lambda x: x in set(string.printable), extracted))
         without_cid = re.sub(r'\(cid:\d*\)', '', printable)

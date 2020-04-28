@@ -40,4 +40,13 @@ def get_keywords(text):
         'value': x['surfaceForm']['value'],
         'skill': x['classificationData']['skills'][0]['skill']['name']
     }, response['trace'])
-    return list(keywords)
+
+    duplicate_removed = []
+    marker = set()
+    for keyword in keywords:
+        lowercased = keyword['value'].lower()
+        if lowercased not in marker:
+            marker.add(lowercased)
+            duplicate_removed.append(keyword)
+
+    return list(duplicate_removed)
