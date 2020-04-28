@@ -39,12 +39,4 @@ class JobViewSet(viewsets.ModelViewSet):
         keywords = map(lambda x: x['value'], get_keywords(
             request.data.get('text')))
 
-        duplicate_removed = []
-        marker = set()
-        for keyword in keywords:
-            lowercased = keyword.lower()
-            if lowercased not in marker:
-                marker.add(lowercased)
-                duplicate_removed.append(keyword)
-
-        return response.Response(duplicate_removed)
+        return response.Response(keywords)
