@@ -25,14 +25,15 @@ class JobSerializer(serializers.ModelSerializer):
         return instance
 
     def update(self, instance, validated_data):
-        instance.resume_text = validated_data.get('resume_text')
-        resume_keywords = get_keywords(instance.resume_text)
-        instance.resume_keywords = json.dumps(resume_keywords)
+        if validated_data.get('resume_text'):
+            instance.resume_text = validated_data.get('resume_text')
+            resume_keywords = get_keywords(instance.resume_text)
+            instance.resume_keywords = json.dumps(resume_keywords)
 
-        values = list(map(lambda x: x['value'].lower(), json.loads(instance.keywords)))
-        resume_values = list(map(lambda x: x['value'].lower(), resume_keywords))
-        matching_count = len([value for value in values if value in resume_values])
-        instance.score = matching_count / len(values) if len(values) else 0
+            values = list(map(lambda x: x['value'].lower(), json.loads(instance.keywords)))
+            resume_values = list(map(lambda x: x['value'].lower(), resume_keywords))
+            matching_count = len([value for value in values if value in resume_values])
+            instance.score = matching_count / len(values) if len(values) else 0
 
         instance.save()
         return instance
